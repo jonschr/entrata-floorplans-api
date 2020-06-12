@@ -50,11 +50,8 @@ function rb_default_each( $floorplan, $args ) {
     }
     
     // Beds/baths classes
-    if ( $beds )
-        $classes[] = 'beds-' . $beds;
-        
-    if ( $baths )
-        $classes[] = 'baths-' . $baths;
+    $classes[] = 'beds-' . $beds;        
+    $classes[] = 'baths-' . $baths;
         
     //* Turns 'classes' back into a string
     $classes = implode( ' ', $classes );
@@ -69,10 +66,10 @@ function rb_default_each( $floorplan, $args ) {
             
         echo '<div class="the-content">';
         
-            if ( $beds )
+            if ( $beds || $beds == 0  )
                 printf( '<div class="items"><span class="label beds-label">Bedrooms</span><span class="item beds-item">%s</span></div>', $beds );
                 
-            if ( $baths )
+            if ( $baths || $baths == 0 )
                 printf( '<div class="items"><span class="label baths-label">Bathrooms</span><span class="item baths-item">%s</span></div>', $baths );
                                             
             if ( $MarketRent )
