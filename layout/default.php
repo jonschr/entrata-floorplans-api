@@ -22,8 +22,19 @@ function rb_default_each( $floorplan, $args ) {
         $beds = $Room[0]->Count;
         $baths = $Room[1]->Count;
         
+        if ( !$beds )
+            $beds = 0;
+            
+        if ( !$baths )
+            $baths = 0;
+        
     $SquareFeet = $floorplan->SquareFeet;
+        $sqrftmin = $SquareFeet->{'@attributes'}->Min;
+        $sqrftmax = $SquareFeet->{'@attributes'}->Max;
+        
     $MarketRent = $floorplan->MarketRent;
+        $rentmin = $MarketRent->{'@attributes'}->Min;
+        $rentmax = $MarketRent->{'@attributes'}->Max;
     
     $File = $floorplan->File['0']->Src;
     
@@ -55,6 +66,22 @@ function rb_default_each( $floorplan, $args ) {
             
         if ( $Name )
             printf( '<h3>%s</h3>', $Name );
+            
+        echo '<div class="the-content">';
+        
+            if ( $beds )
+                printf( '<div class="items"><span class="label beds-label">Bedrooms</span><span class="item beds-item">%s</span></div>', $beds );
+                
+            if ( $baths )
+                printf( '<div class="items"><span class="label baths-label">Bathrooms</span><span class="item baths-item">%s</span></div>', $baths );
+                                            
+            if ( $MarketRent )
+                printf( '<div class="items"><span class="label rent-label">Rent</span><span class="item rent-item">%s-%s</span></div>', $rentmin, $rentmax );
+                
+            if ( $SquareFeet )
+                printf( '<div class="items"><span class="label sqrft-label">Square Feet</span><span class="item sqrft-item">%s-%s</span></div>', $sqrftmin, $sqrftmax );
+            
+        echo '</div>';
                     
     echo '</div>';
     

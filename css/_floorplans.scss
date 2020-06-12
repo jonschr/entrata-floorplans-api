@@ -15,7 +15,28 @@
         margin-bottom: 15px;
     }
 
-    // :last-child {
-    //     margin-bottom: 0;
-    // }
+    .the-content {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+
+        margin-bottom: -20px;
+
+        .items {
+            width: calc(100% / 2 - 10px);
+            margin: 0 5px 20px;
+
+            span {
+                display: block;
+            }
+        }
+
+        h3 {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+    }
 }
