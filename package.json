@@ -1,0 +1,27 @@
+{
+  "name": "entrata-floorplans-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonschr/entrata-floorplans-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonschr/entrata-floorplans-api/issues"
+  },
+  "homepage": "https://github.com/jonschr/entrata-floorplans-api#readme",
+  "devDependencies": {
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.5"
+  }
+}

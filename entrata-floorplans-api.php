@@ -28,11 +28,34 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_API', '0.1' );
-
+define ( 'ENTRATA_FLOORPLANS_VERSION', '0.1' );
 
 // require_once( 'lib/pretty-print.php' );
 require_once( 'lib/shortcode.php' );
+require_once( 'lib/fallback-if-no-id.php' );
 
 //* Layout
 require_once( 'layout/default.php' );
+
+add_action( 'wp_enqueue_scripts', 'entrata_enqueue_scripts_styles' );
+function entrata_enqueue_scripts_styles() {
+
+	// Plugin styles
+    wp_register_style( 'entrata-floorplans', plugin_dir_url( __FILE__ ) . 'css/entrata-floorplans.css', array(), ENTRATA_FLOORPLANS_VERSION, 'screen' );
+    
+    // Script
+    // wp_register_script( 'slick-init', plugin_dir_url( __FILE__ ) . 'js/slick-init.js', array( 'slick-main' ), ENTRATA_FLOORPLANS_VERSION, true );
+	
+	
+}
+
+//* Add the updater
+require 'vendor/plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/jonschr/entrata-floorplans-api',
+	__FILE__,
+	'entrata-floorplans-api'
+);
+
+// Optional: Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('master');

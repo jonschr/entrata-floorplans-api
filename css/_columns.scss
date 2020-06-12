@@ -1,0 +1,47 @@
+.floorplans {
+    display: flex;
+    flex-flow: row wrap;
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    margin-right: -10px;
+
+    .floorplan {
+        margin: 0 10px 20px;
+
+        &:last-child {
+            margin-bottom: 20px !important;
+        }
+    }
+
+    &.columns-2 .floorplan {
+        width: calc(100% / 2 - 20px);
+    }
+
+    &.columns-3 .floorplan {
+        width: calc(100% / 3 - 20px);
+    }
+
+    &.columns-4 .floorplan {
+        width: calc(100% / 4 - 20px);
+    }
+
+    &.columns-5 .floorplan {
+        width: calc(100% / 5 - 20px);
+    }
+
+    &.columns-2,
+    &.columns-3,
+    &.columns-4,
+    &.columns-5 {
+        .floorplan {
+
+            @include tablet {
+                width: calc(100% / 2 - 20px);
+            }
+
+            @include mobile {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+}
