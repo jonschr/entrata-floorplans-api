@@ -8,7 +8,9 @@ Here are the two versions of the shortcode you're most likely to use:
 
 ```
 [entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} leaseurl=https://blueridge-apts.com/lease/ filters=true]
+```
 
+```
 [entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} leaseurl=https://blueridge-apts.com/lease/ limit=3]
 ```
 
