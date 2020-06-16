@@ -7,9 +7,9 @@ tldr;
 Here are the two versions of the shortcode you're most likely to use:
 
 ```
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3 leaseurl=https://blueridge-apts.com/lease/ filters=true]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} leaseurl=https://blueridge-apts.com/lease/ filters=true]
 
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3 leaseurl=https://blueridge-apts.com/lease/ limit=3]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} leaseurl=https://blueridge-apts.com/lease/ limit=3]
 ```
 
 ## Getting started
@@ -21,12 +21,12 @@ Here are the two versions of the shortcode you're most likely to use:
 [entrata username={YOUR USERNAME} password={YOUR PASSWORD}]
 ```
 
-When you've done that, just save the page and go to the frontend, where a helpful table will show you all of the properties you have access to and their corresponding property IDs (these should be numbers, with no letters). You'll probably also want to add a number of columns, which usually will be 3.
+When you've done that, just save the page and go to the frontend, where a helpful table will show you all of the properties you have access to and their corresponding property IDs (these should be numbers, with no letters).
 
 So now, add that and your shortcode should look something like this:
 
 ```
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID}]
 ```
 
 You've done it! That should be pulling in all of the floorplans for the property.
@@ -40,7 +40,7 @@ There are three other parameters you'll almost certainly want to add.
 The leaseurl parameter will add "lease" buttons to each property, and they go to an arbitrary link. Using the shortcode above, that will look something like this:
 
 ```
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3 leaseurl=https://blueridge-apts.com/lease/]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} leaseurl=https://blueridge-apts.com/lease/]
 ```
 
 ### Filters
@@ -48,7 +48,7 @@ The leaseurl parameter will add "lease" buttons to each property, and they go to
 If you'd like to automatically add filters based on the number of rooms, just add a filter parameter, like so:
 
 ```
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3 filter=true]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} filter=true]
 ```
 
 ### Limit
@@ -56,5 +56,13 @@ If you'd like to automatically add filters based on the number of rooms, just ad
 If you'd like to only show a few floorplans (say, on the home page), you can do that with a limit parameter. *NOTE: if you use both the limit parameter and the filter parameter, this will likely lead to unexpected behavior, so don't do that.*
 
 ```
-[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3 limit=6]
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} limit=6]
+```
+
+### Columns
+
+Most of the time, you'll be adding three columns. That's the default, so you don't need a parameter for that. If you'd like to change that number, you can do that with the columns parameter.
+
+```
+[entrata username={YOUR USERNAME} password={YOUR PASSWORD} propertyid={YOUR PROPERY ID} columns=3]
 ```
