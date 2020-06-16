@@ -3,7 +3,7 @@
 	Plugin Name: Floorplans (Entrata API)
 	Plugin URI: https://elod.in
     Description: Just another floorplans plugin
-	Version: 1.0
+	Version: 1.0.1
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -28,7 +28,7 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_VERSION', '1.0' );
+define ( 'ENTRATA_FLOORPLANS_VERSION', '1.0.1' );
 
 //* Shortcode
 require_once( 'lib/shortcode.php' );

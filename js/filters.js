@@ -10,11 +10,9 @@ jQuery(document).ready(function ($) {
         updateButton(currentOnLoad);
     }
 
-
     $('.filter-select').click(function (e) {
-        e.preventDefault;
+        e.preventDefault();
         var current = $(this).data('filter');
-        console.log(current);
         updatePlans(current);
         updateButton(current);
     });
