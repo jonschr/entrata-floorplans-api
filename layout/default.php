@@ -1,14 +1,14 @@
 <?php
 
 //* Output default before
-// add_action( 'before_loop_layout_default', 'rb_default_before' );
-function rb_default_before( $floorplan, $args ) {
+// add_action( 'before_loop_layout_default', 'entrata_floorplans_default_before' );
+function entrata_floorplans_default_before( $floorplan, $args ) {
 	// wp_enqueue_script( 'SCRIPTHANDLE' );
 }
 
 //* Output each default
-add_action( 'add_loop_layout_default', 'rb_default_each', 10, 2 );
-function rb_default_each( $floorplan, $args ) {
+add_action( 'add_loop_layout_default', 'entrata_floorplans_default_each', 10, 2 );
+function entrata_floorplans_default_each( $floorplan, $args ) {
     
     // echo '<pre style="font-size: 12px;">';
     // print_r( $floorplan );
@@ -74,11 +74,22 @@ function rb_default_each( $floorplan, $args ) {
             if ( $baths || $baths == 0 )
                 printf( '<div class="items"><span class="label baths-label">Bathrooms</span><span class="item baths-item">%s</span></div>', $baths );
                                             
-            if ( $MarketRent )
-                printf( '<div class="items"><span class="label rent-label">Rent</span><span class="item rent-item">%s-%s</span></div>', $rentmin, $rentmax );
+            if ( $MarketRent ) {
+                if ( $rentmin != $rentmax ) 
+                    printf( '<div class="items"><span class="label rent-label">Rent</span><span class="item rent-item">$%s-%s</span></div>', $rentmin, $rentmax );
+                    
+                if ( $rentmin == $rentmax ) 
+                    printf( '<div class="items"><span class="label rent-label">Rent</span><span class="item rent-item">$%s</span></div>', $rentmin );
+            }
                 
-            if ( $SquareFeet )
-                printf( '<div class="items"><span class="label sqrft-label">Square Feet</span><span class="item sqrft-item">%s-%s</span></div>', $sqrftmin, $sqrftmax );
+            if ( $SquareFeet ) {
+                
+                if ( $sqrftmin != $sqrftmax )
+                    printf( '<div class="items"><span class="label sqrft-label">Square Feet</span><span class="item sqrft-item">%s-%s</span></div>', $sqrftmin, $sqrftmax );
+                    
+                if ( $sqrftmin == $sqrftmax )
+                    printf( '<div class="items"><span class="label sqrft-label">Square Feet</span><span class="item sqrft-item">%s</span></div>', $sqrftmin );
+            }
             
         echo '</div>';
         
