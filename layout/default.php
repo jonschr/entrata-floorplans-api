@@ -13,6 +13,7 @@ function rb_default_each( $floorplan, $args ) {
     // echo '<pre style="font-size: 12px;">';
     // print_r( $floorplan );
     // echo '</pre>';
+    $rand = rand(1, 1000000 );
     
     //* Get the information
     $Name = $floorplan->Name;
@@ -37,6 +38,7 @@ function rb_default_each( $floorplan, $args ) {
         $rentmax = $MarketRent->{'@attributes'}->Max;
     
     $File = $floorplan->File['0']->Src;
+    $leaseurl = $args['leaseurl'];
     
     //* Classes
     $classes = array();
@@ -59,7 +61,7 @@ function rb_default_each( $floorplan, $args ) {
     printf( '<div class="%s">', $classes );
     
         if ( $File )
-            printf( '<a href="" class="featured" style="background-image:url(%s);"></a>', $File );
+            printf( '<a  href="%s" data-fancybox="gallery-image" class="featured" data-caption="%s" style="background-image:url(%s);"></a>', $File, $Name, $File );
             
         if ( $Name )
             printf( '<h3>%s</h3>', $Name );
@@ -77,6 +79,16 @@ function rb_default_each( $floorplan, $args ) {
                 
             if ( $SquareFeet )
                 printf( '<div class="items"><span class="label sqrft-label">Square Feet</span><span class="item sqrft-item">%s-%s</span></div>', $sqrftmin, $sqrftmax );
+            
+        echo '</div>';
+        
+        echo '<div class="cta-wrap">';
+            
+            if ( $File )
+                printf( '<a data-fancybox="gallery-button" data-caption="%s" class="button" href="%s">View</a>', $Name, $File );
+                
+            if ( $leaseurl )
+                printf( '<a href="%s" class="button">Lease now</a>', $leaseurl );
             
         echo '</div>';
                     

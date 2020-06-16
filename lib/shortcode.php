@@ -9,6 +9,9 @@ function entrata_floorplans_shortcode( $atts ) {
         'propertyid' => null,
         'layout' => 'default',
         'columns' => 3,
+        'leaseurl' => null,
+        'filters' => null,
+        'limit' => 999,
     ), $atts );
 
     ob_start();
@@ -27,7 +30,10 @@ function entrata_floorplans_shortcode( $atts ) {
         return ob_get_clean();
     }
     
+    //* Enqueues
     wp_enqueue_style( 'entrata-floorplans');
+    wp_enqueue_style( 'entrata-fancybox-theme' );
+    wp_enqueue_script( 'entrata-fancybox-main' );
         
     //* If everything's there, then prepare the request
     $jsonRequest = sprintf( '
@@ -74,13 +80,24 @@ function entrata_floorplans_shortcode( $atts ) {
     //* This variable contains all of the information needed
     $floorplans = $floorplans->response->result->FloorPlans->FloorPlan;
     
+    if ( $args['filters'] )
+        do_action( 'entrata_filters', $floorplans, $args );
+    
     //* Set up the outer markup for the layout
     printf( '<div class="floorplans layout-%s columns-%s">', $args['layout'], $args['columns'] );
+    
+    $count = 1;
+    $limit = $args['limit'];
     
         foreach( $floorplans as $floorplan ) {
             do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
             do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
             do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );
+            
+            $count++;
+            
+            if ( $count > $limit )
+                break;
         }
     
     echo '</div>';

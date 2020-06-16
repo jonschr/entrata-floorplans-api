@@ -1,0 +1,9 @@
+.floorplans .floorplan {
+    &.no-units-available {
+        filter: grayscale(100%);
+
+        >* {
+            opacity: 0.6;
+        }
+    }
+}

@@ -3,7 +3,7 @@
 	Plugin Name: Floorplans (Entrata API)
 	Plugin URI: https://elod.in
     Description: Just another floorplans plugin
-	Version: 0.1
+	Version: 1.0
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -28,25 +28,49 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_VERSION', '0.1' );
+define ( 'ENTRATA_FLOORPLANS_VERSION', '1.0' );
 
-// require_once( 'lib/pretty-print.php' );
+//* Shortcode
 require_once( 'lib/shortcode.php' );
 require_once( 'lib/fallback-if-no-id.php' );
 
 //* Layout
 require_once( 'layout/default.php' );
 
+//* Filters
+require_once( 'lib/filters.php' );
+
+//* Enqueues
 add_action( 'wp_enqueue_scripts', 'entrata_enqueue_scripts_styles' );
 function entrata_enqueue_scripts_styles() {
 
-	// Plugin styles
-    wp_register_style( 'entrata-floorplans', plugin_dir_url( __FILE__ ) . 'css/entrata-floorplans.css', array(), ENTRATA_FLOORPLANS_VERSION, 'screen' );
+    wp_register_style( 'entrata-floorplans', 
+        plugin_dir_url( __FILE__ ) . 'css/entrata-floorplans.css',
+        array(),
+        ENTRATA_FLOORPLANS_VERSION,
+        'screen' 
+    );
     
-    // Script
-    // wp_register_script( 'slick-init', plugin_dir_url( __FILE__ ) . 'js/slick-init.js', array( 'slick-main' ), ENTRATA_FLOORPLANS_VERSION, true );
-	
-	
+    wp_register_style( 'entrata-fancybox-theme',
+        plugin_dir_url( __FILE__ ) . '/vendor/fancybox/dist/jquery.fancybox.min.css',
+        array(),
+        ENTRATA_FLOORPLANS_VERSION,
+        'screen' 
+    );
+    
+    wp_register_script( 'entrata-fancybox-main',
+        plugin_dir_url( __FILE__ ) . '/vendor/fancybox/dist/jquery.fancybox.min.js',
+        array( 'jquery' ),
+        ENTRATA_FLOORPLANS_VERSION,
+        true 
+    );
+    
+    wp_register_script( 'entrata-filters',
+        plugin_dir_url( __FILE__ ) . '/js/filters.js',
+        array( 'jquery' ),
+        ENTRATA_FLOORPLANS_VERSION,
+        true 
+    );
 }
 
 //* Add the updater

@@ -1,0 +1,23 @@
+.floorplan-filters {
+    display: block;
+    text-align: center;
+
+    li {
+        display: inline-block;
+        margin: 0 2px;
+
+        a {
+            display: block;
+            text-decoration: none;
+            background-color: #333;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 3px;
+
+            &:hover,
+            &.active {
+                background-color: #777;
+            }
+        }
+    }
+}
