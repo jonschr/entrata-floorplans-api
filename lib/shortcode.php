@@ -12,6 +12,7 @@ function entrata_floorplans_shortcode( $atts ) {
         'leaseurl' => null,
         'filters' => null,
         'limit' => 999,
+        'onlyshow' => null,
     ), $atts );
 
     ob_start();
@@ -90,9 +91,23 @@ function entrata_floorplans_shortcode( $atts ) {
     $limit = $args['limit'];
     
         foreach( $floorplans as $floorplan ) {
-            do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
-            do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
-            do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );
+            
+            //* Skip this floorplan if the name doesn't match an onlyshow
+            $Name = $floorplan->Name;
+            
+            if ( $args['onlyshow']) {
+                if (strpos($Name, $args['onlyshow'] ) !== false) {
+                    do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
+                    do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
+                    do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );
+                }
+            } else {
+                do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
+                do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
+                do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );    
+            }
+            
+            
             
             $count++;
             

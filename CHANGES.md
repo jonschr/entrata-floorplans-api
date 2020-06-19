@@ -1,3 +1,6 @@
+### 1.1
+* Added capability for filtering based on title (the onlyshow parameter of the shortcode)
+
 ### 1.0.2
 * Added readme.md
 * Bugfix for redeclared function rb_default_each();

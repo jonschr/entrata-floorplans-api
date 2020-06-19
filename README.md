@@ -68,3 +68,11 @@ Most of the time, you'll be adding three columns. That's the default, so you don
 ```
 [entrata username={USERNAME} password={PASS} propertyid={ID} columns=3]
 ```
+
+### Only showing floorplans with certain names
+
+Sometimes, a property might have several subproperties that you want to show listings for individually. E.g. Maddie is the property, but "Walker" is in the name of all of the Walker floorplans – and we only want to show those in a certain place. You can do that like this (please note the capitalization *does* matter here).
+
+```
+[entrata username={USERNAME} password={PASS} propertyid={ID} onlyshow=Walker]
+```
