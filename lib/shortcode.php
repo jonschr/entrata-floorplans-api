@@ -97,14 +97,14 @@ function entrata_floorplans_shortcode( $atts ) {
             
             if ( $args['onlyshow']) {
                 if (strpos($Name, $args['onlyshow'] ) !== false) {
-                    do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
-                    do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
-                    do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );
+                    do_action( 'do_before_loop_layout_' . $args['layout'], $floorplan, $args );
+                    do_action( 'do_loop_layout_' . $args['layout'], $floorplan, $args );
+                    do_action( 'do_after_loop_layout_' . $args['layout'], $floorplan, $args );
                 }
             } else {
-                do_action( 'before_loop_layout_' . $args['layout'], $floorplan, $args );
-                do_action( 'add_loop_layout_' . $args['layout'], $floorplan, $args );
-                do_action( 'after_loop_layout_' . $args['layout'], $floorplan, $args );    
+                do_action( 'do_before_loop_layout_' . $args['layout'], $floorplan, $args );
+                do_action( 'do_loop_layout_' . $args['layout'], $floorplan, $args );
+                do_action( 'do_after_loop_layout_' . $args['layout'], $floorplan, $args );    
             }
             
             

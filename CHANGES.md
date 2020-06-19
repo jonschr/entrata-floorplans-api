@@ -1,3 +1,6 @@
+### 1.1.1
+* BUGFIX: conflict between Simple query shortcodes and its default layout and this plugin's. Renamed several action hooks.
+
 ### 1.1
 * Added capability for filtering based on title (the onlyshow parameter of the shortcode)
 

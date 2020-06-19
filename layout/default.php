@@ -1,13 +1,13 @@
 <?php
 
 //* Output default before
-// add_action( 'before_loop_layout_default', 'entrata_floorplans_default_before' );
+// add_action( 'do_before_loop_layout_default', 'entrata_floorplans_default_before' );
 function entrata_floorplans_default_before( $floorplan, $args ) {
 	// wp_enqueue_script( 'SCRIPTHANDLE' );
 }
 
 //* Output each default
-add_action( 'add_loop_layout_default', 'entrata_floorplans_default_each', 10, 2 );
+add_action( 'do_loop_layout_default', 'entrata_floorplans_default_each', 10, 2 );
 function entrata_floorplans_default_each( $floorplan, $args ) {
     
     // echo '<pre style="font-size: 12px;">';
