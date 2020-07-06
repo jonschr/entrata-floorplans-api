@@ -50,7 +50,7 @@ The leaseurl parameter will add "lease" buttons to each property, and they go to
 If you'd like to automatically add filters based on the number of rooms, just add a filter parameter, like so:
 
 ```
-[entrata username={USERNAME} password={PASS} propertyid={ID} filter=true]
+[entrata username={USERNAME} password={PASS} propertyid={ID} filters=true]
 ```
 
 ### Limit
