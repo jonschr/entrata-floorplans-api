@@ -76,9 +76,9 @@ function entrata_enqueue_scripts_styles() {
 //* Add the updater
 require 'vendor/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/jonschr/entrata-floorplans-api',
+	'https://github.com/jonschr/gforms-entrata-addon',
 	__FILE__,
-	'entrata-floorplans-api'
+	'gforms-entrata-addon'
 );
 
 // Optional: Set the branch that contains the stable release.
