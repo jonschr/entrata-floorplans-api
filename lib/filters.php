@@ -8,8 +8,13 @@ function entrata_do_the_filters( $floorplans, $args ) {
     
     $filters = array();
     
+    
+    
     //* Figure out what values our query is getting
     foreach ( $floorplans as $floorplan ) {
+        
+        
+        
         $beds = $floorplan->Room[0]->Count;
         $filters[] = $beds;
     }
@@ -17,6 +22,9 @@ function entrata_do_the_filters( $floorplans, $args ) {
     //* Only keep the unique values
     $filters = array_unique( $filters );
     
+    //* Sort these so that if they came in the wrong order they get fixed
+    sort( $filters );
+        
     //* Output those as a list
     echo '<ul class="floorplan-filters">';
     
