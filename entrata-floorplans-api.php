@@ -3,7 +3,7 @@
 	Plugin Name: Floorplans (Entrata API)
 	Plugin URI: https://elod.in
     Description: Just another floorplans plugin
-	Version: 1.2
+	Version: 1.3
     Author: Jon Schroeder
     Author URI: https://elod.in
 
@@ -28,7 +28,7 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_VERSION', '1.2' );
+define ( 'ENTRATA_FLOORPLANS_VERSION', '1.3' );
 
 //* Shortcode
 require_once( 'lib/shortcode.php' );
@@ -76,9 +76,9 @@ function entrata_enqueue_scripts_styles() {
 //* Add the updater
 require 'vendor/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/jonschr/gforms-entrata-addon',
+	'https://github.com/jonschr/entrata-floorplans-api',
 	__FILE__,
-	'gforms-entrata-addon'
+	'entrata-floorplans-api'
 );
 
 // Optional: Set the branch that contains the stable release.

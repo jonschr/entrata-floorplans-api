@@ -2,21 +2,32 @@
 
 //* Output default before
 // add_action( 'do_before_loop_layout_default', 'entrata_floorplans_default_before' );
-function entrata_floorplans_default_before( $floorplan, $args ) {
+function entrata_floorplans_default_before( $floorplan, $floorplans2_data, $args ) {
 	// wp_enqueue_script( 'SCRIPTHANDLE' );
 }
 
 //* Output each default
-add_action( 'do_loop_layout_default', 'entrata_floorplans_default_each', 10, 2 );
-function entrata_floorplans_default_each( $floorplan, $args ) {
+add_action( 'do_loop_layout_default', 'entrata_floorplans_default_each', 10, 3 );
+function entrata_floorplans_default_each( $floorplan, $floorplans2_data, $args ) {
     
     // echo '<pre style="font-size: 12px;">';
     // print_r( $floorplan );
     // echo '</pre>';
+    
+    // echo '<pre style="font-size: 12px;">';
+    // print_r( $args );
+    // echo '</pre>';
+    
+    // echo '<pre style="font-size: 12px;">';
+    // print_r( $floorplans2_data );
+    // echo '</pre>';
+    
     $rand = rand(1, 1000000 );
     
     //* Get the information
     $Name = $floorplan->Name;
+    $availabilityurl = $floorplans2_data[$Name];
+    $gform_id = $args['gform_id'];    
     $UnitCount = $floorplan->UnitCount;
     $UnitsAvailable = $floorplan->UnitsAvailable;
     $Room = $floorplan->Room; // this one has a bunch of information
@@ -95,13 +106,18 @@ function entrata_floorplans_default_each( $floorplan, $args ) {
         
         echo '<div class="cta-wrap">';
             
-            if ( $File )
-                printf( '<a data-fancybox="gallery-button" data-caption="%s" class="button" href="%s">View</a>', $Name, $File );
-                
-            if ( $leaseurl )
-                printf( '<a href="%s" class="button">Lease now</a>', $leaseurl );
+            // if ( $gform_id )
+                echo '<a data-fancybox data-src="#floorplan-gform-lightbox" class="button" href="javascript:;">Get in touch</a>';
+                                
+            // if ( $leaseurl )
+            //     printf( '<a href="%s" class="button">Lease now</a>', $leaseurl );
+            
+             if ( $availabilityurl )
+                printf( '<a href="%s" target="_blank" class="button">View Availability</a>', $availabilityurl );
             
         echo '</div>';
+        
+        
                     
     echo '</div>';
     

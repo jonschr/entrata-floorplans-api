@@ -7,11 +7,11 @@ tldr;
 Here are the two versions of the shortcode you're most likely to use:
 
 ```
-[entrata username={USERNAME} password={PASS} propertyid={ID} leaseurl={URL} filters=true]
+[entrata username={USERNAME} password={PASS} propertyid={ID} leaseurl={URL} filters=true gform_id={ID}]
 ```
 
 ```
-[entrata username={USERNAME} password={PASS} propertyid={ID} leaseurl={URL} limit=3]
+[entrata username={USERNAME} password={PASS} propertyid={ID} leaseurl={URL} limit=3 gform_id={ID}]
 ```
 
 ## Getting started

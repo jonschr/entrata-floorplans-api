@@ -1,3 +1,7 @@
+### 1.3
+* Adding gform lightbox
+* Adding capability to grab the availability URL
+
 ### 1.1.1
 * BUGFIX: conflict between Simple query shortcodes and its default layout and this plugin's. Renamed several action hooks.
 
