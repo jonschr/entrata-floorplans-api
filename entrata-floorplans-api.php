@@ -1,11 +1,11 @@
 <?php
 /*
 	Plugin Name: Floorplans (Entrata API)
-	Plugin URI: https://elod.in
-    Description: Just another floorplans plugin
-	Version: 1.3
-    Author: Jon Schroeder
-    Author URI: https://elod.in
+	Plugin URI: https://github.com/jonschr/entrata-floorplans-api
+    Description: Just another Entrata floorplans plugin
+	Version: 1.3.1
+    Author: Brindle Digital
+    Author URI: https://www.brindledigital.com/
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_VERSION', '1.3' );
+define ( 'ENTRATA_FLOORPLANS_VERSION', '1.3.1' );
 
 //* Shortcode
 require_once( 'lib/shortcode.php' );

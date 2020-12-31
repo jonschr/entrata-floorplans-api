@@ -1,3 +1,6 @@
+### 1.3.1
+* Update author, etc.
+
 ### 1.3
 * Adding gform lightbox
 * Adding capability to grab the availability URL
