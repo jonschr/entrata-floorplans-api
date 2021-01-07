@@ -138,6 +138,10 @@ function entrata_floorplans_shortcode( $atts ) {
         $floorplans2 = ( json_decode( $result2 ) );            
     }
     
+    // echo '<pre style="font-size: 13px;">';
+    //     print_r( $floorplans2 );
+    // echo '</pre>';
+    
     //* This variable contains all of the information needed
     $floorplans2 = $floorplans2->response->result->PhysicalProperty->Property[0]->Floorplan;
     // $floorplans2_data = array();
