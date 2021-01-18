@@ -36,123 +36,25 @@ function entrata_floorplans_shortcode( $atts ) {
     wp_enqueue_style( 'entrata-fancybox-theme' );
     wp_enqueue_script( 'entrata-fancybox-main' );
     
-    //////////////////////////////////////////////////////////////
-    // REQUEST 1: Get the floorplans (this is most of the data) //
-    //////////////////////////////////////////////////////////////
+    $propertyids = $args['propertyid'];
+    $user = $args['username'];
+    $password = $args['password'];
+    
+    $propertyids = explode( ',', $propertyids );
+    
+    $floorplans = array();
+    $floorplans2_data = array();
+    
+    foreach( $propertyids as $propertyid ) {
+        $floorplanstemp = entrata_api_request_one( $user, $password, $propertyid );
+        $floorplans = array_merge( $floorplans, $floorplanstemp );
         
-    //* If everything's there, then prepare the request
-    $jsonRequest = sprintf( '
-    {
-        "auth": {
-            "type" : "basic"
-        },
-        "requestId" : 15,
-        "method": {
-            "name": "getFloorPlans",
-            "version":"r1",
-            "params": {
-                "propertyId" : %s,
-                "usePropertyPreferences" : "0"
-            }
-        }
-    }',
-    $args['propertyid']
-    );
-    
-    //* Set up the auth part of the request
-    $auth = $args['username'] . ':' . $args['password'];
-    $auth = base64_encode( $auth );
-        
-    //* Start the request
-    $resCurl = curl_init();
-    
-    curl_setopt( $resCurl, CURLOPT_HTTPHEADER,  array( 'Content-type: APPLICATION/JSON; CHARSET=UTF-8', 'Authorization: Basic ' . $auth ) );
-    curl_setopt( $resCurl, CURLOPT_POSTFIELDS, $jsonRequest );
-    curl_setopt( $resCurl, CURLOPT_POST, true );
-    curl_setopt( $resCurl, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/properties' );
-    curl_setopt( $resCurl, CURLOPT_RETURNTRANSFER, 1);
-    
-    $result = curl_exec( $resCurl );
-    
-    if( false === $result ) {
-        echo 'Curl error: ' . curl_error( $resCurl );
-        curl_close( $resCurl );
-    } else {
-        curl_close( $resCurl );
-        $floorplans = ( json_decode( $result ) );            
+        $floorplans2_datatemp = entrata_api_request_two( $user, $password, $propertyid );
+        $floorplans2_data = array_merge( $floorplans2_data, $floorplans2_datatemp );
     }
     
     // echo '<pre style="font-size: 13px;">';
     //     print_r( $floorplans );
-    // echo '</pre>';
-    
-    //* This variable contains all of the information needed
-    $floorplans = $floorplans->response->result->FloorPlans->FloorPlan;
-    
-    /////////////////////////////////////////
-    // REQUEST 2: Get the availability URL //
-    /////////////////////////////////////////
-    
-    //* If everything's there, then prepare the request
-    $jsonRequest2 = sprintf( '
-    {
-        "auth": {
-            "type" : "basic"
-        },
-        "requestId" : 15,
-        "method": {
-            "name": "getMitsPropertyUnits",
-            "params": {
-                "propertyIds": "%s",
-                "availableUnitsOnly": "0",
-                "usePropertyPreferences": "1",
-                "includeDisabledFloorplans": "1",
-                "includeDisabledUnits": "0",
-                "showUnitSpaces": 0
-            }
-        }
-    }',
-    $args['propertyid']
-    );
-    
-    //* Set up the auth part of the request
-    $auth = $args['username'] . ':' . $args['password'];
-    $auth = base64_encode( $auth );
-        
-    //* Start the request
-    $resCurl2 = curl_init();
-    
-    curl_setopt( $resCurl2, CURLOPT_HTTPHEADER,  array( 'Content-type: APPLICATION/JSON; CHARSET=UTF-8', 'Authorization: Basic ' . $auth ) );
-    curl_setopt( $resCurl2, CURLOPT_POSTFIELDS, $jsonRequest2 );
-    curl_setopt( $resCurl2, CURLOPT_POST, true );
-    curl_setopt( $resCurl2, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/propertyunits' );
-    curl_setopt( $resCurl2, CURLOPT_RETURNTRANSFER, 1);
-    
-    $result2 = curl_exec( $resCurl2 );
-    
-    if( false === $result2 ) {
-        echo 'Curl error: ' . curl_error( $resCurl2 );
-        curl_close( $resCurl2 );
-    } else {
-        curl_close( $resCurl2 );
-        $floorplans2 = ( json_decode( $result2 ) );            
-    }
-    
-    // echo '<pre style="font-size: 13px;">';
-    //     print_r( $floorplans2 );
-    // echo '</pre>';
-    
-    //* This variable contains all of the information needed
-    $floorplans2 = $floorplans2->response->result->PhysicalProperty->Property[0]->Floorplan;
-    // $floorplans2_data = array();
-    
-    foreach ( $floorplans2 as $floorplan2 ) {
-        // $floorplans2_data[] = array( $floorplan2->Name, $floorplan2->FloorplanAvailabilityURL );
-        $floorplans2_data[$floorplan2->Name] = $floorplan2->FloorplanAvailabilityURL;
-    }
-    
-    // echo '<pre style="font-size: 13px;">';
-    //     print_r( $floorplans2_data );
     // echo '</pre>';
     
     if ( $args['filters'] )
@@ -199,3 +101,130 @@ function entrata_floorplans_shortcode( $atts ) {
     return ob_get_clean();
 }
 add_shortcode( 'entrata', 'entrata_floorplans_shortcode' );
+
+
+function entrata_api_request_one( $user, $password, $propertyids ) {
+    
+    //////////////////////////////////////////////////////////////
+    // REQUEST 1: Get the floorplans (this is most of the data) //
+    //////////////////////////////////////////////////////////////
+        
+    //* If everything's there, then prepare the request
+    $jsonRequest = sprintf( '
+    {
+        "auth": {
+            "type" : "basic"
+        },
+        "requestId" : 15,
+        "method": {
+            "name": "getFloorPlans",
+            "version":"r1",
+            "params": {
+                "propertyId" : %s,
+                "usePropertyPreferences" : "0"
+            }
+        }
+    }',
+    $propertyids
+    );
+    
+    //* Set up the auth part of the request
+    $auth = $user . ':' . $password;
+    $auth = base64_encode( $auth );
+        
+    //* Start the request
+    $resCurl = curl_init();
+    
+    curl_setopt( $resCurl, CURLOPT_HTTPHEADER,  array( 'Content-type: APPLICATION/JSON; CHARSET=UTF-8', 'Authorization: Basic ' . $auth ) );
+    curl_setopt( $resCurl, CURLOPT_POSTFIELDS, $jsonRequest );
+    curl_setopt( $resCurl, CURLOPT_POST, true );
+    curl_setopt( $resCurl, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/properties' );
+    curl_setopt( $resCurl, CURLOPT_RETURNTRANSFER, 1);
+    
+    $result = curl_exec( $resCurl );
+    
+    if( false === $result ) {
+        echo 'Curl error: ' . curl_error( $resCurl );
+        curl_close( $resCurl );
+    } else {
+        curl_close( $resCurl );
+        $floorplans = ( json_decode( $result ) );            
+    }
+    
+    // echo '<pre style="font-size: 13px;">';
+    //     print_r( $floorplans );
+    // echo '</pre>';
+    
+    //* This variable contains all of the information needed
+    $floorplans = $floorplans->response->result->FloorPlans->FloorPlan;
+    
+    return $floorplans;
+    
+}
+
+function entrata_api_request_two( $user, $password, $propertyids ) {
+    /////////////////////////////////////////
+    // REQUEST 2: Get the availability URL //
+    /////////////////////////////////////////
+    
+    //* If everything's there, then prepare the request
+    $jsonRequest2 = sprintf( '
+    {
+        "auth": {
+            "type" : "basic"
+        },
+        "requestId" : 15,
+        "method": {
+            "name": "getMitsPropertyUnits",
+            "params": {
+                "propertyIds": "%s",
+                "availableUnitsOnly": "0",
+                "usePropertyPreferences": "1",
+                "includeDisabledFloorplans": "1",
+                "includeDisabledUnits": "0",
+                "showUnitSpaces": 0
+            }
+        }
+    }',
+    $propertyids
+    );
+    
+    //* Set up the auth part of the request
+    $auth = $user . ':' . $password;
+    $auth = base64_encode( $auth );
+        
+    //* Start the request
+    $resCurl2 = curl_init();
+    
+    curl_setopt( $resCurl2, CURLOPT_HTTPHEADER,  array( 'Content-type: APPLICATION/JSON; CHARSET=UTF-8', 'Authorization: Basic ' . $auth ) );
+    curl_setopt( $resCurl2, CURLOPT_POSTFIELDS, $jsonRequest2 );
+    curl_setopt( $resCurl2, CURLOPT_POST, true );
+    curl_setopt( $resCurl2, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/propertyunits' );
+    curl_setopt( $resCurl2, CURLOPT_RETURNTRANSFER, 1);
+    
+    $result2 = curl_exec( $resCurl2 );
+    
+    if( false === $result2 ) {
+        echo 'Curl error: ' . curl_error( $resCurl2 );
+        curl_close( $resCurl2 );
+    } else {
+        curl_close( $resCurl2 );
+        $floorplans2 = ( json_decode( $result2 ) );            
+    }
+    
+    // echo '<pre style="font-size: 13px;">';
+    //     print_r( $floorplans2 );
+    // echo '</pre>';
+    
+    //* This variable contains all of the information needed
+    $floorplans2 = $floorplans2->response->result->PhysicalProperty->Property[0]->Floorplan;
+    // $floorplans2_data = array();
+    
+    foreach ( $floorplans2 as $floorplan2 ) {
+        // $floorplans2_data[] = array( $floorplan2->Name, $floorplan2->FloorplanAvailabilityURL );
+        $floorplans2_data[$floorplan2->Name] = $floorplan2->FloorplanAvailabilityURL;
+    }
+    
+    return $floorplans2_data;
+}
+
