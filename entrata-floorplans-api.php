@@ -3,7 +3,7 @@
 	Plugin Name: Floorplans (Entrata API)
 	Plugin URI: https://github.com/jonschr/entrata-floorplans-api
     Description: Just another Entrata floorplans plugin
-	Version: 1.4.1
+	Version: 1.4.2
     Author: Brindle Digital
     Author URI: https://www.brindledigital.com/
 
@@ -28,7 +28,7 @@ if ( !defined( 'ABSPATH' ) ) {
 define( 'ENTRATA_FLOORPLANS', dirname( __FILE__ ) );
 
 // Define the version of the plugin
-define ( 'ENTRATA_FLOORPLANS_VERSION', '1.4.1' );
+define ( 'ENTRATA_FLOORPLANS_VERSION', '1.4.2' );
 
 //* Shortcode
 require_once( 'lib/shortcode.php' );

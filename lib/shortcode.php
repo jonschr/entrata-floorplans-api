@@ -105,6 +105,11 @@ add_shortcode( 'entrata', 'entrata_floorplans_shortcode' );
 
 function entrata_api_request_one( $user, $password, $propertyids ) {
     
+    $floorplans = get_transient( 'entrata_floorplans_' . $user . '_' . $password . '_' . $propertyids );
+    
+    if ( $floorplans != false )
+        return $floorplans;
+    
     //////////////////////////////////////////////////////////////
     // REQUEST 1: Get the floorplans (this is most of the data) //
     //////////////////////////////////////////////////////////////
@@ -158,11 +163,20 @@ function entrata_api_request_one( $user, $password, $propertyids ) {
     //* This variable contains all of the information needed
     $floorplans = $floorplans->response->result->FloorPlans->FloorPlan;
     
+    set_transient( 'entrata_floorplans_' . $user . '_' . $password . '_' . $propertyids, $floorplans, HOUR_IN_SECONDS );
+    
     return $floorplans;
     
 }
 
 function entrata_api_request_two( $user, $password, $propertyids ) {
+    
+    $floorplans2_data = get_transient( 'entrata_floorplans_2_' . $user . '_' . $password . '_' . $propertyids );
+    
+    if ( $floorplans2_data != false )
+        return $floorplans2_data;
+    
+    
     /////////////////////////////////////////
     // REQUEST 2: Get the availability URL //
     /////////////////////////////////////////
@@ -224,6 +238,8 @@ function entrata_api_request_two( $user, $password, $propertyids ) {
         // $floorplans2_data[] = array( $floorplan2->Name, $floorplan2->FloorplanAvailabilityURL );
         $floorplans2_data[$floorplan2->Name] = $floorplan2->FloorplanAvailabilityURL;
     }
+    
+    set_transient( 'entrata_floorplans_2_' . $user . '_' . $password . '_' . $propertyids, $floorplans2_data, HOUR_IN_SECONDS );
     
     return $floorplans2_data;
 }
