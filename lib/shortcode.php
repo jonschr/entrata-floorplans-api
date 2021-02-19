@@ -50,6 +50,11 @@ function entrata_floorplans_shortcode( $atts ) {
         $floorplans = array_merge( $floorplans, $floorplanstemp );
         
         $floorplans2_datatemp = entrata_api_request_two( $user, $password, $propertyid );
+        
+        // echo '<pre>';
+        // print_r( $floorplans2_datatemp );
+        // echo '</pre>';
+        
         $floorplans2_data = array_merge( $floorplans2_data, $floorplans2_datatemp );
     }
     
