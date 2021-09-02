@@ -1,3 +1,6 @@
+### 1.5.0
+* HOTFIX: Adding code to make the plugin work with Flywheel's cloud platform (note: this means it may break on other platforms until this is fully resolved)
+
 ### 1.3.1
 * Update author, etc.
 
