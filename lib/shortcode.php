@@ -50,11 +50,6 @@ function entrata_floorplans_shortcode( $atts ) {
         $floorplans = array_merge( $floorplans, $floorplanstemp );
         
         $floorplans2_datatemp = entrata_api_request_two( $user, $password, $propertyid );
-        
-        // echo '<pre>';
-        // print_r( $floorplans2_datatemp );
-        // echo '</pre>';
-        
         $floorplans2_data = array_merge( $floorplans2_data, $floorplans2_datatemp );
     }
     
@@ -150,6 +145,7 @@ function entrata_api_request_one( $user, $password, $propertyids ) {
     curl_setopt( $resCurl, CURLOPT_POST, true );
     curl_setopt( $resCurl, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/properties' );
     curl_setopt( $resCurl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt( $resCurl, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
     
     $result = curl_exec( $resCurl );
     
@@ -220,6 +216,7 @@ function entrata_api_request_two( $user, $password, $propertyids ) {
     curl_setopt( $resCurl2, CURLOPT_POST, true );
     curl_setopt( $resCurl2, CURLOPT_URL, 'https://cardinal.entrata.com/api/v1/propertyunits' );
     curl_setopt( $resCurl2, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt( $resCurl2, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
     
     $result2 = curl_exec( $resCurl2 );
     
