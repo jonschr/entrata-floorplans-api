@@ -26,7 +26,13 @@ function entrata_floorplans_default_each( $floorplan, $floorplans2_data, $args )
     
     //* Get the information
     $Name = $floorplan->Name;
-    $availabilityurl = $floorplans2_data[$Name];
+    
+    if ( isset($floorplans2_data[$Name] ) ) {
+        $availabilityurl = $floorplans2_data[$Name];
+    } else {
+        $availabilityurl = null;
+    }
+    
     $gform_id = $args['gform_id'];    
     $UnitCount = $floorplan->UnitCount;
     $UnitsAvailable = $floorplan->UnitsAvailable;
