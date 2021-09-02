@@ -1,3 +1,6 @@
+### 1.5.1
+* Adding transients back in (they were disabled in 1.5.0 to ensure that it didn't give false positives)
+
 ### 1.5.0
 * HOTFIX: Adding code to make the plugin work with Flywheel's cloud platform (note: this means it may break on other platforms until this is fully resolved)
 

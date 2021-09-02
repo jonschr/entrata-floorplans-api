@@ -105,7 +105,7 @@ add_shortcode( 'entrata', 'entrata_floorplans_shortcode' );
 
 function entrata_api_request_one( $user, $password, $propertyids ) {
     
-    // $floorplans = get_transient( 'entrata_floorplans_' . $user . '_' . $password . '_' . $propertyids );
+    $floorplans = get_transient( 'entrata_floorplans_' . $user . '_' . $password . '_' . $propertyids );
     
     if ( $floorplans != false )
         return $floorplans;
@@ -172,7 +172,7 @@ function entrata_api_request_one( $user, $password, $propertyids ) {
 
 function entrata_api_request_two( $user, $password, $propertyids ) {
     
-    // $floorplans2_data = get_transient( 'entrata_floorplans_2_' . $user . '_' . $password . '_' . $propertyids );
+    $floorplans2_data = get_transient( 'entrata_floorplans_2_' . $user . '_' . $password . '_' . $propertyids );
     
     if ( $floorplans2_data != false )
         return $floorplans2_data;
